@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lchow.walletkotlin">
 
+    <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -20,6 +26,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ScanBarcodeActivity"
+                  android:label="BarcodeScanner">
+                  <intent-filter>
+                      <action android:name="com.lchow.walletkotlin.ScanBarcodeActivity" />
+                      <category android:name="android.intent.category.DEFAULT" />
+                  </intent-filter>
         </activity>
     </application>
 

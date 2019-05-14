@@ -68,6 +68,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 addFragment()
 
             }
+            R.id.nav_add_product -> {
+                addProductFragment()
+            }
             else ->{
                 HomeFragment()
             }
