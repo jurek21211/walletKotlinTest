@@ -14,9 +14,6 @@ import java.sql.Statement
 
 class addFragment : Fragment(){
 
-    val DB_URL = "jdbc:mysql://192.168.0.11/mydb"
-    val USER = "zzz"
-    val PASS = "zzz"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add,null);
@@ -28,15 +25,15 @@ class addFragment : Fragment(){
 
 
         submit_button.setOnClickListener{
-        clickedButton(this)
+
+       // clickedButton(this)
         }
     }
 
-    fun clickedButton(view: addFragment) {
+   /* fun clickedButton(view: addFragment) {
         val category = CategoryIn.text.toString().toInt()
         val price = PriceIn.text.toString().toInt()
-        val date= Calendar.getInstance().get(Calendar.DATE)
-    }
+    }*/
 
 
 

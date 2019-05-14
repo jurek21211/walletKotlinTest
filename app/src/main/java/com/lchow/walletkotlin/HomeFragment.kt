@@ -2,6 +2,7 @@ package com.lchow.walletkotlin
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,27 +16,38 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.sql.Connection
+import java.sql.ResultSet
 
 class HomeFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val policy = StrictMode.ThreadPolicy.Builder()
+            .permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
         return inflater.inflate(R.layout.fragment_home,null);
+
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setUpPieChartData()
 
 
+
+
+
     }
+
     private fun setUpPieChartData() {
-        val yVals = ArrayList<PieEntry>()
-        yVals.add(PieEntry(30f,"first"))
-        yVals.add(PieEntry(2f,"second"))
-        yVals.add(PieEntry(4f,"third"))
+        val  myData = MysqlCon.pieDATA()
 
 
-        val dataSet = PieDataSet(yVals, "")
+
+
+        val dataSet = PieDataSet(myData, "")
         dataSet.valueTextSize=0f
         val colors = java.util.ArrayList<Int>()
         colors.add(Color.GRAY)
@@ -59,6 +71,7 @@ class HomeFragment : Fragment(){
         pieChart.setUsePercentValues(true)
     }
 }
+
 
 
 
