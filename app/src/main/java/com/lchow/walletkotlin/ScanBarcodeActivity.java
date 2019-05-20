@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
@@ -53,8 +55,18 @@ public class ScanBarcodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (intentData.length() > 0)
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
+                Bundle bundle = new Bundle();
+                intentData = "132";
+
+                if (intentData.length() > 0) {
+                    bundle.putString("params", intentData);
+                    Fragment fragment = new addProductFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.relativeLayout, fragment);
+                    transaction.commit();
+                }
+
             }
         });
     }
@@ -134,5 +146,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         super.onResume();
         initialiseDetectorAndSources();
     }
+
 
 }

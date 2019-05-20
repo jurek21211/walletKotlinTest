@@ -1,5 +1,6 @@
 package com.lchow.walletkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -11,7 +12,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.os.StrictMode
-
+import android.view.View
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -31,8 +32,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
         displayFragment(-1)
+        startScan(-1);
+
+
+
     }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -58,8 +65,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun displayFragment(id: Int){
-        val fragment = when(id){
+    fun displayFragment(id: Int) {
+        val fragment = when (id) {
             R.id.nav_home -> {
                 HomeFragment()
 
@@ -68,26 +75,38 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 addFragment()
 
             }
-            R.id.nav_add_product -> {
-                addProductFragment()
-            }
-            else ->{
+            else -> {
                 HomeFragment()
             }
         }
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.relativeLayout,fragment)
+            .replace(R.id.relativeLayout, fragment)
             .commit()
 
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         displayFragment(item.itemId)
+        startScan(item.itemId)
 
 
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun startScan(id: Int) {
+       val act = when(id) {
+            R.id.nav_add_product -> {
+                 startActivity(Intent(applicationContext,ScanBarcodeActivity::class.java))
+             }
+
+
+           else -> {
+               HomeFragment()
+           }
+       }
     }
 }
